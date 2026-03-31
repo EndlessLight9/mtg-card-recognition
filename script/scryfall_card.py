@@ -7,7 +7,7 @@ def baixar_carta_especifica(nome_da_carta, pasta_destino):
     url = f"https://api.scryfall.com/cards/named?exact={nome_da_carta}"
     
     headers = {
-        "User-Agent": "ProjetoVisaoComputacionalFaculdade/1.0",
+        "User-Agent": "AIProject/1.0",
         "Accept": "application/json"
     }
     
