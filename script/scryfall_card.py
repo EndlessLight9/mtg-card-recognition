@@ -1,5 +1,8 @@
 import os
 import requests
+import time
+
+from pathlib import Path
 
 def baixar_carta_especifica(nome_da_carta, pasta_destino):
     print(f"Buscando '{nome_da_carta}' no Scryfall...")
@@ -37,10 +40,18 @@ def baixar_carta_especifica(nome_da_carta, pasta_destino):
         print(f"Error in API: Código {resposta.status_code}")
 
 if __name__ == "__main__":
-    pasta_banco = "/home/endless_light/mtg-card-recognition/scryfall_data"
-    os.makedirs(pasta_banco, exist_ok=True)
+    project_root = Path(__file__).resolve().parent.parent
+    pasta_banco = project_root / "scryfall_data"
+    pasta_banco.mkdir(parents=True, exist_ok=True)
     
     #nome da carta EM INGLES
-    nome_da_carta = "The Ur-Dragon" 
+    lista_de_cartas = ["The Ur-Dragon",
+                       "Black Lotus"
+                       ]
     
-    baixar_carta_especifica(nome_da_carta, pasta_banco)
+    for carta in lista_de_cartas:
+        baixar_carta_especifica(carta, pasta_banco)
+        time.sleep(0.1)
+    
+    print("All done!")
+

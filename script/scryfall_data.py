@@ -3,6 +3,8 @@ import requests
 import pandas as pd
 import time
 
+from pathlib import Path
+
 def fetch_scryfall_data(limit = 100):
     """
     Function to fetch card data from Scryfall API, process data and download card images.
@@ -48,8 +50,9 @@ def fetch_scryfall_data(limit = 100):
     valid_df = valid_df.dropna(subset=['image_url'])
 
     #establish directory to save images
-    image_dir = "/home/endless_light/mtg-card-recognition/scryfall_data"
-    os.makedirs(image_dir, exist_ok=True)
+    root_dir = Path(__file__).resolve().parent.parent
+    image_dir = root_dir / "scryfall_data"
+    image_dir.mkdir(parents=True, exist_ok=True)
 
     #download images
     for index, row in valid_df.head(limit).iterrows():
