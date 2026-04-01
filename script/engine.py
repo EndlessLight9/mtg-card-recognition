@@ -1,5 +1,4 @@
 import cv2
-import os
 
 #Usamos detector ORB
 #Ele procura por pontos de interesse da imagem, como bordas
@@ -40,7 +39,8 @@ def compare_cards(descriptors_test, descriptors_db):
         return 0
     
     matches = bf.match(descriptors_test, descriptors_db)
-    return len(matches)
+    good_matches = [m for m in matches if m.distance < 50] 
+    return len(good_matches)
 
 if __name__ == "__main__":
     print("Engine module loaded. Ready to extract features and compare cards.")

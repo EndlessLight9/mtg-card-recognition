@@ -2,10 +2,11 @@ import os
 import glob
 
 from engine import extract_features, compare_cards
+from pathlib import Path
 
 def identify_card(test_image_path, database_dir):
     """
-    Mainn function that receives a photo and sweeps through the database to find the best match.
+    Main function that receives a photo and sweeps through the database to find the best match.
     """
 
     test_image_name = os.path.basename(test_image_path)
@@ -47,8 +48,11 @@ def identify_card(test_image_path, database_dir):
 
 if __name__ == "__main__":
     #definimos pastas
-    test_image_path = "/home/endless_light/mtg-card-recognition/images"
-    database_dir = "/home/endless_light/mtg-card-recognition/scryfall_data"
+    project_root = Path(__file__).resolve().parent.parent
+    test_image_path = project_root / "images"
+    test_image_path.mkdir(parents=True, exist_ok=True)
+    database_dir = project_root / "scryfall_data"
+    database_dir.mkdir(parents=True, exist_ok=True)
 
     all_test_images = glob.glob(os.path.join(test_image_path, "*.jpg")) 
 
